@@ -25,11 +25,19 @@ class Game
       break if @hangman.complete?
 
       puts @hangman
-      puts 'enter a letter'
+      puts 'enter a letter, 1 to save'
       input = gets.chomp
+      save if input == '1'
       next unless input =~ /[a-zA-z]/ && input.size == 1
 
       @hangman.right?(input)
+    end
+  end
+
+  def save
+    File.open("saves/hangman#{(Dir.entries 'saves').length - 1}.dump", 'w') do |file|
+      file.puts Marshal.dump(self)
+      file.puts ' '
     end
   end
 end
