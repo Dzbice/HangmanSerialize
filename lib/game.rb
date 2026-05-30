@@ -35,6 +35,7 @@ class Game
   end
 
   def save
+    Dir.mkdir('saves') unless File.exist?('saves')
     File.open("saves/hangman#{(Dir.entries 'saves').length - 1}.dump", 'w') do |file|
       file.puts Marshal.dump(self)
       file.puts ' '
